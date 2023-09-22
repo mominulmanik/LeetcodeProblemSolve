@@ -1027,3 +1027,62 @@ func twoSum1(_ nums: [Int], _ target: Int) -> [Int] {
     resultArray.append(secondNumIndex)
     return resultArray
 }
+
+// 1456 Maximum number of vowels
+
+func maxVowels(_ s: String, _ k: Int) -> Int {
+   var maxCount = 0
+   var count = 0
+   var index = 0
+   var stringIndex = s.startIndex
+   s.forEach { character in
+       if index < k {
+           if vowelCheck(s: "\(character)") {
+               count += 1
+           }
+       } else {
+           if vowelCheck(s: "\(s[stringIndex])") {
+               count -= 1
+           }
+           if vowelCheck(s: "\(character)") {
+               count += 1
+           }
+           stringIndex = s.index(after: stringIndex)
+       }
+       maxCount = max(maxCount, count)
+       index += 1
+   }
+   return maxCount
+}
+
+func vowelCheck(s: String) -> Bool {
+   return s == "a" || s == "e" || s == "i" || s == "o" || s == "u"
+}
+
+// 1004. Max Consecutive Ones III
+
+func longestOnes(_ nums: [Int], _ k: Int) -> Int {
+    var zeroes = 0
+    var ones = 0
+    var maxCount = 0
+    var i = 0
+    var j = 0
+    for _ in 0...nums.count - 1 {
+        if nums[j] == 1 {
+            ones += 1
+        } else {
+            zeroes += 1
+        }
+        while zeroes > k && i <= j {
+            if nums[i] == 1 {
+               ones -= 1
+            } else {
+                zeroes -= 1
+            }
+            i += 1
+        }
+        maxCount =  max(maxCount, j - i + 1)
+        j += 1
+    }
+    return maxCount
+}
