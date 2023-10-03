@@ -1086,3 +1086,25 @@ func longestOnes(_ nums: [Int], _ k: Int) -> Int {
     }
     return maxCount
 }
+
+// 14. Longest Common Prefix
+
+func longestCommonPrefix(_ strs: [String]) -> String {
+    if strs.count == 0 {
+        return ""
+    }
+    var prefix = strs[0]
+    for index in 1..<strs.count {
+        while prefix.count > 0 {
+            if !strs[index].hasPrefix(prefix) {
+                prefix.removeLast()
+            } else {
+                break
+            }
+            if prefix.count == 0 {
+                return ""
+            }
+        }
+    }
+    return prefix
+}
