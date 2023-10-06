@@ -1108,3 +1108,72 @@ func longestCommonPrefix(_ strs: [String]) -> String {
     }
     return prefix
 }
+
+// 20. Valid Parentheses
+
+func isValid(_ s: String) -> Bool {
+    var firstBrac = false
+    var secondBrac = false
+    var thirdBrac = false
+    var result = false
+    s.forEach { character in
+        if firstBrac || secondBrac || thirdBrac {
+            if "\(character)" == "(" {
+                firstBrac = true
+            }
+            if "\(character)" == "{" {
+                secondBrac = true
+            }
+            if "\(character)" == "[" {
+                thirdBrac = true
+            }
+        } else {
+            if firstBrac {
+                if "\(character)" == ")" {
+                    firstBrac = false
+                } else {
+                    return false
+                }
+            }
+            if secondBrac {
+                if "\(character)" == "}" {
+                    secondBrac = false
+                } else {
+                    return false
+                }
+            }
+            if thirdBrac {
+                if "\(character)" == "]" {
+                    thirdBrac = false
+                } else {
+                    return false
+                }
+            }
+        }
+    }
+}
+
+// 1732. Find the Highest Altitude
+
+func largestAltitude(_ gain: [Int]) -> Int {
+    var currentAltitubde = 0
+    var maxAltitude = 0
+    gain.forEach { altitude in
+        currentAltitubde += altitude
+        maxAltitude = max(maxAltitude, currentAltitubde)
+    }
+    return maxAltitude
+}
+
+// 724. Find Pivot Index
+
+func pivotIndex(_ nums: [Int]) -> Int {
+    var totalSum = 0
+    nums.forEach { number in
+        totalSum += number
+    }
+    for index in (nums.count - 1)...0 {
+        print(index)
+    }
+    return -1
+}
