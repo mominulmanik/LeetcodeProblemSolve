@@ -1221,3 +1221,49 @@ func uniqueOccurrences(_ arr: [Int]) -> Bool {
     }
     return true
 }
+
+// 933. Number of Recent Calls
+
+class RecentCounter {
+    var queue = Queue<Int>()
+    init() {
+        
+    }
+
+    func ping(_ t: Int) -> Int {
+        while !queue.isEmpty && queue.elements.first ?? 0 < (t - 3000) {
+            queue.dequeue()
+        }
+        queue.enqueue(t)
+        return queue.count
+    }
+}
+
+struct Queue<T> {
+    var elements: [T] = []
+    
+    var isEmpty: Bool {
+        return elements.isEmpty
+    }
+    
+    mutating func enqueue(_ element: T) {
+        elements.append(element)
+    }
+    
+    mutating func dequeue() -> T? {
+        return isEmpty ? nil : elements.removeFirst()
+    }
+    
+    func peek() -> T? {
+        return elements.first
+    }
+    
+    var count: Int {
+        return elements.count
+    }
+}
+/**
+ * Your RecentCounter object will be instantiated and called as such:
+ * let obj = RecentCounter()
+ * let ret_1: Int = obj.ping(t)
+ */
