@@ -1177,3 +1177,47 @@ func pivotIndex(_ nums: [Int]) -> Int {
     }
     return -1
 }
+
+// 2215. Find the Difference of Two Arrays
+
+func findDifference(_ nums1: [Int], _ nums2: [Int]) -> [[Int]] {
+    var set2 = Set(nums2)
+    var onlySet1 = Set<Int>()
+    var index = 0
+    let set1 = Set(nums1)
+    for num in Array(set1) {
+        if !set2.contains(num) {
+            onlySet1.insert(num)
+        } else {
+            set2.remove(num)
+        }
+        index += 1
+    }
+    return [Array(onlySet1) , Array(set2)]
+}
+
+// 1207. Unique Number of Occurrences
+
+func uniqueOccurrences(_ arr: [Int]) -> Bool {
+    var countArr: [Int] = []
+    let sortedArr = arr.sorted()
+    var previousItem = sortedArr[0]
+    var count = 0
+    for item in sortedArr {
+        if item != previousItem {
+            if !countArr.contains(count) {
+                countArr.append(count)
+                count = 1
+                previousItem = item
+            } else {
+                return false
+            }
+        } else {
+            count += 1
+        }
+    }
+    if countArr.contains(count) {
+        return false
+    }
+    return true
+}
