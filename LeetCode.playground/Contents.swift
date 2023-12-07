@@ -1262,8 +1262,152 @@ struct Queue<T> {
         return elements.count
     }
 }
-/**
- * Your RecentCounter object will be instantiated and called as such:
- * let obj = RecentCounter()
- * let ret_1: Int = obj.ping(t)
- */
+
+// 26.Remove Duplicates from Sorted Array
+
+func removeDuplicates(_ nums: inout [Int]) -> Int {
+        var numList = nums
+        var previuos = nums[0]
+        var currentindex = 0
+        for index in 1..<numList.count {
+            if numList[index] == previuos {
+                nums.remove(at: currentindex)
+            } else {
+                previuos = numList[index]
+                currentindex += 1
+            }
+        }
+        return nums.count
+    }
+
+// 27. Remove Element
+func removeElement(_ nums: inout [Int], _ val: Int) -> Int {
+    var numList = nums
+    var currentindex = 0
+    for index in 0..<numList.count {
+        if numList[index] == val {
+            nums.remove(at: currentindex)
+        } else {
+            currentindex += 1
+        }
+    }
+    return nums.count
+}
+
+// 67. Add Binary
+func addBinary(_ a: String, _ b: String) -> String {
+    var newA = a
+    var newB = b
+    var carry = 0
+    var result = ""
+    var index = 0
+
+    while newA.count > 0 || newB.count > 0 || carry > 0 {
+        var sum = carry
+        if newA.count > 0 {
+            sum += Int("\(newA.removeLast())") ?? 0
+        }
+        if newB.count > 0 {
+            sum += Int("\(newB.removeLast())") ?? 0
+        }
+
+        result = "\(sum % 2)" + result
+        carry = sum / 2
+        index += 1
+    }
+
+    return result.isEmpty ? "0" : result
+}
+
+// 69. Sqrt(x)
+
+func mySqrt(_ x: Int) -> Int {
+  if x == 1 {
+    return 1
+  }
+  var left = 0
+  var right = Int(x / 2)
+  var mid = 0
+  while left <= right {
+      mid = left + ((right - left) / 2)
+      if mid * mid < x {
+          left = mid + 1
+      } else if mid * mid > x {
+          right = mid - 1
+      } else {
+          return mid
+      }
+  }
+  return right
+}
+
+// 58. Length of Last Word
+
+func lengthOfLastWord(_ s: String) -> Int {
+    return s.split(separator: " ").last?.count ?? 0
+}
+
+// 88. Merge Sorted Array
+
+func merge(_ nums1: inout [Int], _ m: Int, _ nums2: [Int], _ n: Int) {
+    let firstNums = nums1
+    nums1.removeAll()
+    for index in 0..<firstNums.count {
+        if index < m {
+            nums1.append(firstNums[index])
+        } else {
+            nums1.append(nums2[index - m])
+        }
+    }
+    nums1.sort()
+}
+
+// 94. Binary Tree Inorder Traversal
+
+var result: [Int] = []
+func inorderTraversal(_ root: TreeNode?) -> [Int] {
+    inOrderTraverse(root)
+    return result
+}
+
+func inOrderTraverse(_ root: TreeNode?) {
+    if let rt = root {
+        inOrderTraverse(rt.left)
+        result.append(rt.val)
+        inOrderTraverse(rt.right)
+    }
+}
+
+// 100. Same Tree
+
+func isSameTree(_ p: TreeNode?, _ q: TreeNode?) -> Bool {
+    if p?.val == nil && q?.val == nil {
+      return true
+    }
+    if p?.val == nil || q?.val == nil {
+      return false
+    }
+    if p?.val != q?.val {
+      return false
+    }
+    return isSameTree(p?.left, q?.left) && isSameTree(p?.right, q?.right)
+}
+
+// 101. Symmetric Tree
+
+func isSymmetric(_ root: TreeNode?) -> Bool {
+    return isSymmetricCheck(root?.left, root?.right)
+}
+
+func isSymmetricCheck(_ p: TreeNode?, _ q: TreeNode?) -> Bool {
+  if p?.val == nil && q?.val == nil {
+      return true
+    }
+    if p?.val == nil || q?.val == nil {
+      return false
+    }
+    if p?.val != q?.val {
+      return false
+    }
+    return isSymmetricCheck(p?.left, q?.right) && isSymmetricCheck(p?.right, q?.left)
+}
